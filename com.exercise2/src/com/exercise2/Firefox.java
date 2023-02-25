@@ -1,5 +1,7 @@
 package com.exercise2;
 
+import java.util.Arrays;
+
 public class Firefox extends Browser implements MultipleAccountContainers {
 	String[] containerLists = new String[5];
 
@@ -16,7 +18,7 @@ public class Firefox extends Browser implements MultipleAccountContainers {
 		for (int i = 0; i < containerLists.length; i++) {
 			if (containerLists[i] == null) {
 				containerLists[i] = name;
-				displayContainers(containerLists[i]);
+				//displayContainers(containerLists[i]);
 				return;
 			} else if (containerLists[i].equals(name)) {
 				System.out.println("the container " + name + " already exists");
@@ -40,10 +42,15 @@ public class Firefox extends Browser implements MultipleAccountContainers {
 		}
 	}
 
-	public void displayContainers(String name) {
-
-		System.out.println(name);
-
+	public void displayContainers() {
+		for (String container:containerLists) {
+			if (container!=null) {
+				System.out.println(container);
+			}
+		}
+		
 	}
+
+	
 
 }

@@ -5,5 +5,5 @@ public interface MultipleAccountContainers {
 
 	public void leaveContainer(String name);
 
-	public void displayContainers(String name);
+	public void displayContainers();
 }

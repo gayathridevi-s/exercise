@@ -17,25 +17,33 @@ public class GoogleChrome extends Browser {
 		
 		System.out.println("I am Google Chrome ");
 	}
-
-	 public boolean[]setPermission(boolean value) {
+	static int noOfTabs(Browser[] googleTab) {
+		int countTabs = 0;
+		for (int i = 0; i < googleTab.length; i++) {
+			if (googleTab[i] instanceof GoogleChrome) {
+				countTabs++;
+			}
+		}
+		return countTabs;
+	}
+	 public void setPermission(boolean value) {
 		isLocationAccessible = value;
 		isCameraAccessible = value;
 		isMicrophoneAccessible = value;
-		return getPermission();
+		getPermission();
 	}
-	boolean[] getPermission() {
-		boolean[] all = { isLocationAccessible, isCameraAccessible, isMicrophoneAccessible };
-		boolean[] out=Arrays.toString(all);
-		return all;
+	void getPermission() {
+		System.out.println("location permission: "+ isLocationAccessible);
+		System.out.println("camera permission: "+ isCameraAccessible);
+		System.out.println("microphone permission: "+isMicrophoneAccessible);
+
 	}
 
-	boolean[] setPermission(boolean isLocationAccessible, boolean isCameraAccessible, boolean isMicrophoneAccessible) {
-		this.isLocationAccessible = isLocationAccessible;
-		this.isCameraAccessible = isCameraAccessible;
-		this.isMicrophoneAccessible = isMicrophoneAccessible;
-		boolean[] all = { this.isLocationAccessible, this.isCameraAccessible, this.isMicrophoneAccessible };
-		return all;
+	public void setPermission(boolean value1, boolean value2, boolean value3) {
+		isLocationAccessible = value1;
+		isCameraAccessible = value2;
+		isMicrophoneAccessible = value3;
+		getPermission();
 
 	}
 
