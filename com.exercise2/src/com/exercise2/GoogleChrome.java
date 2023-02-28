@@ -1,22 +1,26 @@
 package com.exercise2;
 
-import java.util.Arrays;
-
 public class GoogleChrome extends Browser {
 	boolean isLocationAccessible;
 	boolean isCameraAccessible;
 	boolean isMicrophoneAccessible;
-	final double versionNumber = 1.0;
+	private static final double VERSIONNUMBER = 1.0;
 
 	GoogleChrome(String name1, String name2) {
-		super(name1); 								// accessing main class constructor
+		super(name1); // accessing main class constructor
 		System.out.println("this is a " + name2 + " subclass");
 	}
 
-	void whoAmI() {
-		
+	public void whoAmI() {
+
 		System.out.println("I am Google Chrome ");
+
 	}
+
+	public double getVersionNumber() {
+		return VERSIONNUMBER;
+	}
+
 	static int noOfTabs(Browser[] googleTab) {
 		int countTabs = 0;
 		for (int i = 0; i < googleTab.length; i++) {
@@ -26,16 +30,18 @@ public class GoogleChrome extends Browser {
 		}
 		return countTabs;
 	}
-	 public void setPermission(boolean value) {
+
+	public void setPermission(boolean value) {
 		isLocationAccessible = value;
 		isCameraAccessible = value;
 		isMicrophoneAccessible = value;
 		getPermission();
 	}
+
 	void getPermission() {
-		System.out.println("location permission: "+ isLocationAccessible);
-		System.out.println("camera permission: "+ isCameraAccessible);
-		System.out.println("microphone permission: "+isMicrophoneAccessible);
+		System.out.println("location permission: " + isLocationAccessible);
+		System.out.println("camera permission: " + isCameraAccessible);
+		System.out.println("microphone permission: " + isMicrophoneAccessible);
 
 	}
 
