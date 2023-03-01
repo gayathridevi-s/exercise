@@ -1,6 +1,9 @@
 package com.exercise2;
 
+import java.util.ArrayList;
 import java.util.Scanner;
+
+//import exercise3.websiteDetails;
 
 public class MainMethod {
 
@@ -9,7 +12,6 @@ public class MainMethod {
 		Scanner input = new Scanner(System.in);
 		Browser chrome = new Browser(BROWSER);
 		Browser.Bookmarks chromeBookmarks = chrome.new Bookmarks();// member inner class
-		System.out.println("add bookmarks: ");
 		chromeBookmarks.addBookmarks();
 		System.out.println("the bookmarks for chrome are: ");
 		System.out.println(chromeBookmarks.displayBookmark());
@@ -29,15 +31,51 @@ public class MainMethod {
 		visitedUrl.setUrl(history); // accessing non static methods
 		System.out.println("history:");
 		System.out.println(Browser.History.getUrl()); // accessing static methods
+		System.out.println("To track history count :");
+		System.out.println("How many entries do you want?");
+        int noOfEntries = input.nextInt();
+        
+        for (int i = 0; i < noOfEntries; i++) {
+            String page = input.next();
+            chrome.historyCount(page);
+            }
+            
 
-		Browser page = new Browser(BROWSER);
+		System.out.println("add shortcuts:(type N to exit)");
+		Browser.Shortcuts browserShortcuts = new Browser.Shortcuts() { // anonymous inner class
+			ArrayList<String> shortcuts = new ArrayList<>();
+
+			public void addShortcuts() {
+
+				while (true) {
+
+					String shortcut = input.next();
+
+					if (shortcut.equalsIgnoreCase("N")) {
+						break;
+					}
+					shortcuts.add(shortcut);
+				}
+
+			}
+
+			public String displayShortcuts() {
+				return shortcuts.toString();
+
+			}
+		};
+		browserShortcuts.addShortcuts();
+		System.out.println("the shortcuts are:");
+		System.out.println(browserShortcuts.displayShortcuts());
+
+		Browser pages = new Browser(BROWSER);
 		Browser tabOne = new GoogleChrome(BROWSER, "google chrome");
 		Browser tabTwo = new Firefox(BROWSER, "firefox");
 		Browser tabThree = new Firefox(BROWSER, "firefox");
 		Browser tabFour = new GoogleChrome(BROWSER, "google chrome");
 		Browser tabFive = new GoogleChrome(BROWSER, "google chrome");
 		Browser[] allBrowsers = { tabOne, tabTwo, tabThree, tabFour, tabFive };
-		page.whoAmI();
+		pages.whoAmI();
 		tabOne.whoAmI();
 		tabThree.whoAmI();
 		System.out.println("No of google chrome tabs: " + GoogleChrome.noOfTabs(allBrowsers));
@@ -60,3 +98,4 @@ public class MainMethod {
 
 	}
 }
+
