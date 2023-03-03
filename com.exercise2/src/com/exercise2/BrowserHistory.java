@@ -22,7 +22,7 @@ public class BrowserHistory {
 		maxSteps = urlCount - 1;
 		lastUrl = urlList.get(maxSteps);
 		return urlList.toString();
-
+ 
 	}
 
 	public String get(int position) {

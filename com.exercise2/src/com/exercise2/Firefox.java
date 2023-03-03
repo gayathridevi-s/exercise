@@ -1,7 +1,6 @@
 package com.exercise2;
 
 
-
 public class Firefox extends Browser implements MultipleAccountContainers {
 	String[] containerLists = new String[5];
 

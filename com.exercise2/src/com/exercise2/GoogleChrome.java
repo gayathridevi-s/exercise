@@ -37,7 +37,7 @@ public class GoogleChrome extends Browser {
 		isMicrophoneAccessible = value;
 		getPermission();
 	}
-
+	
 	void getPermission() {
 		System.out.println("location permission: " + isLocationAccessible);
 		System.out.println("camera permission: " + isCameraAccessible);
