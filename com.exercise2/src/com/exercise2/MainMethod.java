@@ -3,18 +3,12 @@ package com.exercise2;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-//import exercise3.websiteDetails;
-
 public class MainMethod {
 
 	public static void main(String[] args) {
 		final String BROWSER = "browser"; // final String
 		Scanner input = new Scanner(System.in);
 		Browser chrome = new Browser(BROWSER);
-		Browser.Bookmarks chromeBookmarks = chrome.new Bookmarks();// member inner class
-		chromeBookmarks.addBookmarks();
-		System.out.println("the bookmarks for chrome are: ");
-		System.out.println(chromeBookmarks.displayBookmark());
 
 		System.out.println("enter number of urls:");
 
@@ -33,13 +27,16 @@ public class MainMethod {
 		System.out.println(Browser.History.getUrl()); // accessing static methods
 		System.out.println("To track history count :");
 		System.out.println("How many entries do you want?");
-        int noOfEntries = input.nextInt();
-        
-        for (int i = 0; i < noOfEntries; i++) {
-            String page = input.next();
-            chrome.historyCount(page);
-            }
-            
+		int noOfEntries = input.nextInt();
+
+		for (int i = 0; i < noOfEntries; i++) {
+			String page = input.next();
+			chrome.historyCount(page);
+		}
+		Browser.Bookmarks chromeBookmarks = chrome.new Bookmarks();// member inner class
+		chromeBookmarks.addBookmarks();
+		System.out.println("the bookmarks for chrome are: ");
+		System.out.println(chromeBookmarks.displayBookmark());
 
 		System.out.println("add shortcuts:(type N to exit)");
 		Browser.Shortcuts browserShortcuts = new Browser.Shortcuts() { // anonymous inner class
@@ -98,4 +95,3 @@ public class MainMethod {
 
 	}
 }
-

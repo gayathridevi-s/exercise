@@ -33,12 +33,15 @@ public class Browser {
 			return Arrays.toString(url);
 		}
 	}
+	//int count =0;
 	public void historyCount(String name) {
 		boolean flag = false;
+		//int count = 0;
 
         for (int j = 0; j < count; j++) {
             if (historyNumber[j].startsWith(name)) {
                 String[] splittedUrl = historyNumber[j].split("##");
+                
                 int num = Integer.parseInt(splittedUrl[1].trim());
                 historyNumber[j] = (name + " ## " + (num + 1));
                 flag = true;
