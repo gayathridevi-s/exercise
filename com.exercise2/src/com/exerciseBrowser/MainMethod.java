@@ -172,9 +172,11 @@ public class MainMethod {
 				System.out.println("enter the url that needs to be deleted:");
 				String deleteUrl = input.next();
 				website.deleteHistory(deleteUrl);
+				System.out.println();
 				System.out.println("enter the index whose url needs to be deleted");
 				int deleteIndex=input.nextInt();
 				website.deleteHistory(deleteIndex);
+				System.out.println();
 				System.out.println("enter the extension whose url needs to be deleted");
 				String extensionDelete=input.next();
 				website.deleteHistoryExtension(extensionDelete);
