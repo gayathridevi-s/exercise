@@ -128,6 +128,7 @@ public class BrowserHistory {
 				iter.remove();
 			}
 
+			
 		}
 	}
 
