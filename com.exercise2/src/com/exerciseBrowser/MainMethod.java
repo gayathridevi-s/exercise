@@ -162,6 +162,10 @@ public class MainMethod {
 			}
 			case 7: {
 				website.size();
+				System.out.println("enter the extension of url whose size is needed:");
+				String extensionSize=input.next();
+				System.out.println("size of url with extension"+extensionSize+" :");
+				website.size(extensionSize);
 				break;
 			}
 			case 8: {

@@ -110,13 +110,20 @@ public class BrowserHistory {
 		urlSet.remove(deleteUrl);
 		urlLinkedSet.remove(deleteUrl);
 		urlTreeSet.remove(deleteUrl);
-		System.out.println("array list of url after removing  " + deleteUrl + " " + urlList);
-		System.out.println("linked list of url after removing  " + deleteUrl + " " + urlListLinked);
-		System.out.println("Stack of url after removing  " + deleteUrl + " " + urlListStack);
-		System.out.println("Vector of url after removing  " + deleteUrl + " " + urlListVector);
-		System.out.println("Set of url after removing  " + deleteUrl + " " + urlSet);
-		System.out.println("Linked Set of url after removing  " + deleteUrl + " " + urlLinkedSet);
-		System.out.println("TreeSet of url after removing  " + deleteUrl + " " + urlTreeSet);
+		System.out.println("array list of url after removing  " + deleteUrl +  " :" );
+		System.out.println(urlList);
+		System.out.println("linked list of url after removing  " + deleteUrl + ": " );
+		System.out.println(urlListLinked);
+		System.out.println("Stack of url after removing  " + deleteUrl + ": " );
+		System.out.println(urlListStack);
+		System.out.println("Vector of url after removing  " + deleteUrl + " :");
+		System.out.println(urlListVector);
+		System.out.println("Set of url after removing  " + deleteUrl + " :" );
+		System.out.println(urlSet);
+		System.out.println("Linked Set of url after removing  " + deleteUrl + ": " );
+		System.out.println(urlLinkedSet);
+		System.out.println("TreeSet of url after removing  " + deleteUrl + " :" );
+		System.out.println( urlTreeSet);
 	}
 
 	
@@ -144,7 +151,7 @@ public class BrowserHistory {
 		System.out.println("history of visited url in vector");
 		System.out.println(urlListVector);
 		System.out.println("history of visited url in hash set");
-		System.out.println(urlSet); // doubt
+		System.out.println(urlSet); 
 		System.out.println("history of visited url in linked hashset");
 		System.out.println(urlLinkedSet);
 		System.out.println("history of visited url in tree set:");
@@ -173,6 +180,16 @@ public class BrowserHistory {
 		System.out.println("size of history linked hash set :" + urlLinkedSet.size());
 		System.out.println("size of history tree set :" + urlTreeSet.size());
 
+	}
+	public void size(String extension) {
+		Set<String> keys = urlHashMap.keySet();
+		for(String key:keys) {
+			if(key.equals(extension)) {
+				System.out.println(urlHashMap.get(key).size());
+				
+			}
+		}
+			
 	}
 
 	public void search(String extension) {
