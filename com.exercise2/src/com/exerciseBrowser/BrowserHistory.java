@@ -29,37 +29,36 @@ public class BrowserHistory {
 	HashSet<String> urlSet = new HashSet<>();
 	LinkedHashSet<String> urlLinkedSet = new LinkedHashSet<>();
 	TreeSet<String> urlTreeSet = new TreeSet<>();
-	HashMap<String,List<String>>urlHashMap=new HashMap<>();
-	LinkedHashMap<String,List<String>>urlLinkedHashMap=new LinkedHashMap<>();
-	TreeMap<String,List<String>>urlTreeMap=new TreeMap<>();
-	
+	HashMap<String, List<String>> urlHashMap = new HashMap<>();
+	LinkedHashMap<String, List<String>> urlLinkedHashMap = new LinkedHashMap<>();
+	TreeMap<String, List<String>> urlTreeMap = new TreeMap<>();
+
 	public BrowserHistory(String homepage) {
 		this.homepage = homepage;
 	}
 
 	public void visit(String url) {
 		visitedUrl = url;
-		 String urlExtension=visitedUrl.substring(visitedUrl.lastIndexOf("."));
-		
+		String urlExtension = visitedUrl.substring(visitedUrl.lastIndexOf("."));
+
 		urlList.add(visitedUrl);
-		
-		if(!urlHashMap.containsKey(urlExtension)) {
+
+		if (!urlHashMap.containsKey(urlExtension)) {
 			urlHashMap.put(urlExtension, new ArrayList<>());
 		}
-		
+
 		urlHashMap.get(urlExtension).add(visitedUrl);
-		if(!urlLinkedHashMap.containsKey(urlExtension)) {
+		if (!urlLinkedHashMap.containsKey(urlExtension)) {
 			urlLinkedHashMap.put(urlExtension, new ArrayList<>());
 		}
-		
+
 		urlLinkedHashMap.get(urlExtension).add(visitedUrl);
-		if(!urlTreeMap.containsKey(urlExtension)) {
+		if (!urlTreeMap.containsKey(urlExtension)) {
 			urlTreeMap.put(urlExtension, new ArrayList<>());
 		}
-		
+
 		urlTreeMap.get(urlExtension).add(visitedUrl);
-		
-		
+
 		urlCount = urlList.size();
 		maxSteps = urlCount - 1;
 		lastUrl = urlList.get(maxSteps);
@@ -119,16 +118,16 @@ public class BrowserHistory {
 		System.out.println("Linked Set of url after removing  " + deleteUrl + " " + urlLinkedSet);
 		System.out.println("TreeSet of url after removing  " + deleteUrl + " " + urlTreeSet);
 	}
+
 	public void deleteHistoryExtension(String extension) {
-		Set<String> keys=urlHashMap.keySet();
-		Iterator<String>iter=keys.iterator();
-		while(iter.hasNext()) {
-			String key=iter.next();
-			if(key.equals(extension)) {
+		Set<String> keys = urlHashMap.keySet();
+		Iterator<String> iter = keys.iterator();
+		while (iter.hasNext()) {
+			String key = iter.next();
+			if (key.equals(extension)) {
 				iter.remove();
-		}
-		
-			
+			}
+
 		}
 	}
 
@@ -154,13 +153,13 @@ public class BrowserHistory {
 		System.out.println("history of visited url with its extension in tree map");
 		System.out.println(urlTreeMap);
 	}
+
 	public void fetchHistory(String extension) {
-		Set<String> keys=urlHashMap.keySet();
-		if(keys.contains(extension)) {
-			System.out.println(extension+urlHashMap.get(extension));
+		Set<String> keys = urlHashMap.keySet();
+		if (keys.contains(extension)) {
+			System.out.println(extension + urlHashMap.get(extension));
 		}
 	}
-	
 
 	public void size() {
 		System.out.println("size of history arraylist :" + urlList.size());

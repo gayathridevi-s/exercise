@@ -60,6 +60,7 @@ public class MainMethod {
 				}
 
 			}
+			
 
 			public String displayShortcuts() {
 				return shortcuts.toString();
