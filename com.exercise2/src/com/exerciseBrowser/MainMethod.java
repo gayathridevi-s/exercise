@@ -10,7 +10,7 @@ public class MainMethod {
 		final String BROWSER = "browser"; // final String
 		Scanner input = new Scanner(System.in);
 		Browser chrome = new Browser(BROWSER);
-		BrowserHistory googlechrome = new BrowserHistory("GoogleChrome");
+		BrowserHistory website = new BrowserHistory("GoogleChrome");
 
 		System.out.println("enter number of urls:");
 
@@ -76,10 +76,17 @@ public class MainMethod {
 		do {
 			System.out.println("enter your choice:");
 			System.out.println("1:visit url");
-			System.out.println("2:get url");
-			System.out.println("3:move forward");
-			System.out.println("4:move backward");
-			System.out.println("5:exit");
+			System.out.println("2:fetch history");
+			System.out.println("3:fetch history using extension");
+			System.out.println("4:search extension");
+			System.out.println("5:get url");
+			System.out.println("6:sort");
+			System.out.println("7:size");
+			System.out.println("8:delete history");
+			System.out.println("9:update history");
+			System.out.println("10:move forward");
+			System.out.println("11:move backward");
+			System.out.println("12:exit");
 			try {
 				choice = input.nextInt();
 			} catch (InputMismatchException e) {
@@ -95,8 +102,8 @@ public class MainMethod {
 
 				try {
 					if (site.endsWith(".com") || site.endsWith(".in") || site.endsWith(".org")) {
-						String list = googlechrome.visit(site);
-						System.out.println(list);
+						website.visit(site);
+
 					} else {
 						throw new invalidURLException("invalid URL extension");
 					}
@@ -108,15 +115,33 @@ public class MainMethod {
 				break;
 			}
 			case 2: {
+				website.fetchHistory();
+				
+				break;
+			}
+			case 3:{
+				System.out.println("type the extension to fetch its history:");
+				String extensionUrl=input.next();
+				website.fetchHistory(extensionUrl);
+				break;
+			}
+			case 4: {
+				System.out.println("type the extension to search its url:");
+				String extension=input.next();
+				website.search(extension);
+				
+				break;
+			}
+			case 5: {
 				System.out.println("enter the position");
 				position = input.nextInt();
 				try {
-					if (position >= googlechrome.urlList.size()) {
+					if (position >= website.urlList.size()) {
 						throw new IndexOutOfBoundsException("Invalid position");
 					} else if (position <= -1) {
 						throw new InvalidPositionException("Provide only positive values");
 					} else {
-						String getUrl = googlechrome.get(position);
+						String getUrl = website.get(position);
 						System.out.println(getUrl);
 					}
 
@@ -128,12 +153,43 @@ public class MainMethod {
 
 				break;
 			}
-			case 3: {
+			case 6: {
+				website.sort();
+				break;
+			}
+			case 7: {
+				website.size();
+				break;
+			}
+			case 8: {
+				System.out.println("enter the url that needs to be deleted:");
+				String deleteUrl = input.next();
+				website.deleteHistory(deleteUrl);
+				System.out.println("enter the index whose url needs to be deleted");
+				int deleteIndex=input.nextInt();
+				website.deleteHistory(deleteIndex);
+				System.out.println("enter the extension whose url needs to be deleted");
+				String extensionDelete=input.next();
+				website.deleteHistoryExtension(extensionDelete);
+				
+				
+				break;
+			}
+			case 9: {
+				System.out.println("enter the url for updation");
+				String updatedUrl = input.next();
+				System.out.println("enter the index whose url needs to be updated :");
+				int updatedUrlIndex = input.nextInt();
+				website.updateHistory(updatedUrlIndex, updatedUrl);
+				break;
+			}
+
+			case 10: {
 				System.out.println("enter number of steps to forward: ");
 				int steps = input.nextInt();
 				String urlForward = null;
 				try {
-					urlForward = googlechrome.forward(steps);
+					urlForward = website.forward(steps);
 				} catch (NoHistoryFoundException e) {
 					System.out.println(e);
 					System.out.println("You have reached the end of your browsing history!");
@@ -143,12 +199,12 @@ public class MainMethod {
 				break;
 			}
 
-			case 4: {
+			case 11: {
 				System.out.println("enter number of steps to move backward: ");
 				int steps = input.nextInt();
 				String urlBackward = null;
 				try {
-					urlBackward = googlechrome.back(steps);
+					urlBackward = website.back(steps);
 				} catch (NoHistoryFoundException e) {
 					System.out.println(e);
 				}
@@ -156,7 +212,7 @@ public class MainMethod {
 				break;
 
 			}
-			case 5:
+			case 12:
 				System.out.println("exiting the program!");
 
 				break;
@@ -164,7 +220,7 @@ public class MainMethod {
 				System.out.println("invalid choice");
 				break;
 			}
-		} while (choice != 5);
+		} while (choice != 12);
 
 		// exercise 2-oops concept
 		Browser pages = new Browser(BROWSER);
