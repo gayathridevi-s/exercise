@@ -120,6 +120,7 @@ public class BrowserHistory {
 	}
 
 	
+	
 	public void deleteHistoryExtension(String extension) {
 		Set<String> keys = urlHashMap.keySet();
 		Iterator<String> iter = keys.iterator();
