@@ -1,12 +1,15 @@
 package com.exerciseBrowser;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import hack.Hacker;
+
 public class MainMethod {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		final String BROWSER = "browser"; // final String
 		Scanner input = new Scanner(System.in);
 		Browser chrome = new Browser(BROWSER);
@@ -87,9 +90,10 @@ public class MainMethod {
 			System.out.println("7:size");
 			System.out.println("8:delete history");
 			System.out.println("9:update history");
-			System.out.println("10:move forward");
-			System.out.println("11:move backward");
-			System.out.println("12:exit");
+			System.out.println("10:search url by word");
+			System.out.println("11:move forward");
+			System.out.println("12:move backward");
+			System.out.println("13:exit");
 			try {
 				choice = input.nextInt();
 			} catch (InputMismatchException e) {
@@ -117,6 +121,7 @@ public class MainMethod {
 
 				break;
 			}
+			//exercise-7 collections framework
 			case 2: {
 				website.fetchHistory();
 				
@@ -193,7 +198,13 @@ public class MainMethod {
 				break;
 			}
 
-			case 10: {
+			case 10:{
+				System.out.println("enter the word that needs to be searched in url");
+				String word=input.next();
+				website.wordSearch(word);
+				break;
+			}
+			case 11: {
 				System.out.println("enter number of steps to forward: ");
 				int steps = input.nextInt();
 				String urlForward = null;
@@ -208,7 +219,7 @@ public class MainMethod {
 				break;
 			}
 
-			case 11: {
+			case 12: {
 				System.out.println("enter number of steps to move backward: ");
 				int steps = input.nextInt();
 				String urlBackward = null;
@@ -221,7 +232,7 @@ public class MainMethod {
 				break;
 
 			}
-			case 12:
+			case 13:
 				System.out.println("exiting the program!");
 
 				break;
@@ -229,7 +240,20 @@ public class MainMethod {
 				System.out.println("invalid choice");
 				break;
 			}
-		} while (choice != 12);
+		} while (choice != 13);
+		ArrayList<String> urlList=website.getUrl();
+		System.out.println(urlList);
+		Hacker historyDetails=new Hacker(urlList);
+		String file="History.txt";
+		historyDetails.writeToFile(file);
+		ArrayList<String>readHistory=historyDetails.readFile(file);
+		
+		readHistory.add("www.yahoo.com");
+		readHistory.add("xiomi.org");
+		readHistory.add("wikipedia.in");
+		Hacker modifiedHistoryDetails=new Hacker(readHistory);
+		modifiedHistoryDetails.writeToFile(file);
+		
 
 		// exercise 2-oops concept
 		Browser pages = new Browser(BROWSER);

@@ -1,6 +1,8 @@
 package com.exerciseBrowser;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -69,6 +71,10 @@ public class BrowserHistory {
 		urlLinkedSet.add(visitedUrl);
 		urlTreeSet.add(visitedUrl);
 	}
+	public ArrayList<String> getUrl() {
+		return urlList;
+	}
+	
 
 	public void sort() {
 		ArrayList<String> copyUrlList = (ArrayList<String>) urlList.clone();
@@ -96,10 +102,14 @@ public class BrowserHistory {
 		urlListLinked.remove(index);
 		urlListStack.remove(index);
 		urlListVector.remove(index);
-		System.out.println("arraylist of url after removing url at index " + index + " " + urlList);
-		System.out.println("linked list of url after removing url at index " + index + " " + urlListLinked);
-		System.out.println("Stack of url after removing url at index " + index + " " + urlListStack);
-		System.out.println("Vector of url after removing url at index " + index + " " + urlListVector);
+		System.out.println("arraylist of url after removing url at index " + index + " " );
+		System.out.println( urlList);
+		System.out.println("linked list of url after removing url at index " + index + " ");
+		System.out.println(urlListLinked);
+		System.out.println("Stack of url after removing url at index " + index + " ");
+		System.out.println(urlListStack);
+		System.out.println("Vector of url after removing url at index " + index + " " );
+		System.out.println(urlListVector);
 	}
 
 	public void deleteHistory(String deleteUrl) {
@@ -143,8 +153,8 @@ public class BrowserHistory {
 				iterLinked.remove();
 			}
 		}
-		Set<String> TreeKeys = urlTreeMap.keySet();
-		Iterator<String> iterTree=TreeKeys.iterator();
+		Set<String> treeKeys = urlTreeMap.keySet();
+		Iterator<String> iterTree=treeKeys.iterator();
 		while(iterTree.hasNext()) {
 			String treeKey=iterTree.next();
 			if(treeKey.equals(extension)) {
@@ -207,71 +217,21 @@ public class BrowserHistory {
 	}
 
 	public void search(String extension) {
-		ArrayList<String> urlWithExtension = new ArrayList<String>();
-		for (String urlName : urlList) {
-			if (urlName.endsWith(extension)) {
-				urlWithExtension.add(urlName);
+		ArrayList<String> urlWithExtension = new ArrayList<>();
+		List<Collection<String>> allCollections=Arrays.asList(urlList,urlListLinked,urlListStack,urlListVector,urlSet,urlLinkedSet,urlTreeSet);
+		for(Collection<String>collection:allCollections) {
+			for(String eachUrl:collection) {
+				if(eachUrl.endsWith(extension)) {
+					urlWithExtension.add(eachUrl);
+				}
+				
 			}
-		}
-		if (!urlWithExtension.isEmpty()) {
-			displaySearchHistory(urlWithExtension, extension, "Arraylist");
-		}
-		urlWithExtension.clear();
-		for (String urlName : urlListLinked) {
-			if (urlName.endsWith(extension)) {
-				urlWithExtension.add(urlName);
+			if (!urlWithExtension.isEmpty()) {
+				displaySearchHistory(urlWithExtension, extension, "Arraylist");
 			}
+			urlWithExtension.clear();
 		}
-		if (!urlWithExtension.isEmpty()) {
-			displaySearchHistory(urlWithExtension, extension, "Linked list");
-		}
-		urlWithExtension.clear();
-		for (String urlName : urlListStack) {
-			if (urlName.endsWith(extension)) {
-				urlWithExtension.add(urlName);
-			}
-		}
-		if (!urlWithExtension.isEmpty()) {
-			displaySearchHistory(urlWithExtension, extension, "Stack");
-		}
-		urlWithExtension.clear();
-		for (String urlName : urlListVector) {
-			if (urlName.endsWith(extension)) {
-				urlWithExtension.add(urlName);
-			}
-		}
-		if (!urlWithExtension.isEmpty()) {
-			displaySearchHistory(urlWithExtension, extension, "Vector");
-		}
-		urlWithExtension.clear();
-		for (String urlName : urlSet) {
-			if (urlName.endsWith(extension)) {
-				urlWithExtension.add(urlName);
-			}
-		}
-		if (!urlWithExtension.isEmpty()) {
-			displaySearchHistory(urlWithExtension, extension, "HashSet");
-		}
-		urlWithExtension.clear();
-		for (String urlName : urlLinkedSet) {
-			if (urlName.endsWith(extension)) {
-				urlWithExtension.add(urlName);
-			}
-		}
-		if (!urlWithExtension.isEmpty()) {
-			displaySearchHistory(urlWithExtension, extension, "Linked Set");
-		}
-		urlWithExtension.clear();
-		for (String urlName : urlTreeSet) {
-			if (urlName.endsWith(extension)) {
-				urlWithExtension.add(urlName);
-			}
-		}
-		if (!urlWithExtension.isEmpty()) {
-			displaySearchHistory(urlWithExtension, extension, "Tree Set");
-		}
-		urlWithExtension.clear();
-
+		
 	}
 
 	public void updateHistory(int updateUrlIndex, String updatedUrl) {
@@ -299,8 +259,17 @@ public class BrowserHistory {
 			System.out.println(urls);
 		}
 	}
+	public void wordSearch(String word) {	//search url by word
+		for(List<String>urls:urlHashMap.values()) {
+			for(String url:urls) {
+				if(url.contains(word)) {
+					System.out.println(url);
+				}
+			}
+		}
+	}
 
-	public String get(int position) {
+	public String get(int position) {	//to access the url of given position
 		currentPosition = position;
 		return urlList.get(currentPosition);
 	}
@@ -323,7 +292,9 @@ public class BrowserHistory {
 			return urlList.get(currentPosition - steps);
 		}
 	}
+	
 }
+
 
 class invalidURLException extends Exception {
 	public invalidURLException(String message) {
