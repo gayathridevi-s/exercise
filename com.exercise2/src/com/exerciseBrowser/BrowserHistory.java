@@ -35,10 +35,13 @@ public class BrowserHistory {
 	LinkedHashMap<String, List<String>> urlLinkedHashMap = new LinkedHashMap<>();
 	TreeMap<String, List<String>> urlTreeMap = new TreeMap<>();
 
-	public BrowserHistory(String homepage) {
-		this.homepage = homepage;
-	}
+//	public BrowserHistory(String homepage) {
+//		this.homepage = homepage;
+//	}
 
+	public BrowserHistory() {
+		// TODO Auto-generated constructor stub
+	}
 	public void visit(String url) {
 		visitedUrl = url;
 		String urlExtension = visitedUrl.substring(visitedUrl.lastIndexOf("."));
@@ -71,7 +74,24 @@ public class BrowserHistory {
 		urlLinkedSet.add(visitedUrl);
 		urlTreeSet.add(visitedUrl);
 	}
-	public ArrayList<String> getUrl() {
+	public void setUrlUpdated(ArrayList<String> readHistory) {
+		urlList.clear();
+		urlList.addAll(readHistory);
+		urlListLinked.clear();
+		urlListLinked.addAll(readHistory);
+		urlListStack.clear();
+		urlListStack.addAll(readHistory);
+		urlListVector.clear();
+		urlListVector.addAll(readHistory);
+		urlSet.clear();
+		urlSet.addAll(readHistory);
+		urlLinkedSet.clear();
+		urlLinkedSet.addAll(readHistory);
+		urlTreeSet.clear();
+		urlTreeSet.addAll(readHistory);
+		
+	}
+	public ArrayList<String> returnUrl() {
 		return urlList;
 	}
 	
@@ -292,6 +312,7 @@ public class BrowserHistory {
 			return urlList.get(currentPosition - steps);
 		}
 	}
+	
 	
 }
 

@@ -1,5 +1,6 @@
 package com.exerciseBrowser;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -13,7 +14,7 @@ public class MainMethod {
 		final String BROWSER = "browser"; // final String
 		Scanner input = new Scanner(System.in);
 		Browser chrome = new Browser(BROWSER);
-		BrowserHistory website = new BrowserHistory("GoogleChrome");
+		BrowserHistory website = new BrowserHistory();
 
 		System.out.println("enter number of urls:");
 
@@ -82,18 +83,22 @@ public class MainMethod {
 		do {
 			System.out.println("enter your choice:");
 			System.out.println("1:visit url");
-			System.out.println("2:fetch history");
+			System.out.println("2:fetch history using all collections!");
 			System.out.println("3:fetch history using extension");
-			System.out.println("4:search extension");
-			System.out.println("5:get url");
-			System.out.println("6:sort");
-			System.out.println("7:size");
-			System.out.println("8:delete history");
-			System.out.println("9:update history");
-			System.out.println("10:search url by word");
-			System.out.println("11:move forward");
-			System.out.println("12:move backward");
-			System.out.println("13:exit");
+			System.out.println("4:fetch history ");
+			System.out.println("5:search extension");
+			System.out.println("6:get url");
+			System.out.println("7:sort");
+			System.out.println("8:size");
+			System.out.println("9:delete history");
+			System.out.println("10:update history");
+			System.out.println("11:search url by word");
+			System.out.println("12:move forward");
+			System.out.println("13:move backward");
+			System.out.println("14:write contents of file");
+			System.out.println("15:read contents of file");
+			System.out.println("16:exit");
+			ArrayList<String> visitedHistory=website.returnUrl();
 			try {
 				choice = input.nextInt();
 			} catch (InputMismatchException e) {
@@ -133,14 +138,18 @@ public class MainMethod {
 				website.fetchHistory(extensionUrl);
 				break;
 			}
-			case 4: {
+			case 4:{
+				System.out.println(website.returnUrl());
+				break;
+			}
+			case 5: {
 				System.out.println("type the extension to search its url:");
 				String extension=input.next();
 				website.search(extension);
 				
 				break;
 			}
-			case 5: {
+			case 6: {
 				System.out.println("enter the position");
 				position = input.nextInt();
 				try {
@@ -161,11 +170,11 @@ public class MainMethod {
 
 				break;
 			}
-			case 6: {
+			case 7: {
 				website.sort();
 				break;
 			}
-			case 7: {
+			case 8: {
 				website.size();
 				System.out.println("enter the extension of url whose size is needed:");
 				String extensionSize=input.next();
@@ -173,7 +182,7 @@ public class MainMethod {
 				website.size(extensionSize);
 				break;
 			}
-			case 8: {
+			case 9: {
 				System.out.println("enter the url that needs to be deleted:");
 				String deleteUrl = input.next();
 				website.deleteHistory(deleteUrl);
@@ -189,7 +198,7 @@ public class MainMethod {
 				
 				break;
 			}
-			case 9: {
+			case 10: {
 				System.out.println("enter the url for updation");
 				String updatedUrl = input.next();
 				System.out.println("enter the index whose url needs to be updated :");
@@ -198,13 +207,13 @@ public class MainMethod {
 				break;
 			}
 
-			case 10:{
+			case 11:{
 				System.out.println("enter the word that needs to be searched in url");
 				String word=input.next();
 				website.wordSearch(word);
 				break;
 			}
-			case 11: {
+			case 12: {
 				System.out.println("enter number of steps to forward: ");
 				int steps = input.nextInt();
 				String urlForward = null;
@@ -219,7 +228,7 @@ public class MainMethod {
 				break;
 			}
 
-			case 12: {
+			case 13: {
 				System.out.println("enter number of steps to move backward: ");
 				int steps = input.nextInt();
 				String urlBackward = null;
@@ -232,7 +241,31 @@ public class MainMethod {
 				break;
 
 			}
-			case 13:
+			//exercise 8-file handling
+			case 14:
+			{
+				//ArrayList<String> visitedHistory=website.returnUrl();
+				System.out.println("type the name of file you want to create:");
+				String file=input.next();
+				new Hacker(visitedHistory);
+				Hacker.writeToFile(file);
+				break;
+			}
+			case 15:
+			{ 	System.out.println("type the name of file you want to read:");
+			       String readFileContent=input.next();
+				ArrayList<String>readHistory=Hacker.readFile(readFileContent);
+				System.out.println("the contents in the file are:");
+				System.out.println(readHistory);
+				
+				if(!(website.returnUrl()).equals(readHistory)) {
+					website.setUrlUpdated(readHistory);
+					
+					System.out.println("the list gets updated!");
+				}
+				break;
+			}
+			case 16:
 				System.out.println("exiting the program!");
 
 				break;
@@ -240,21 +273,9 @@ public class MainMethod {
 				System.out.println("invalid choice");
 				break;
 			}
-		} while (choice != 13);
-		ArrayList<String> urlList=website.getUrl();
-		System.out.println(urlList);
-		Hacker historyDetails=new Hacker(urlList);
-		String file="History.txt";
-		historyDetails.writeToFile(file);
-		ArrayList<String>readHistory=historyDetails.readFile(file);
+		} while (choice != 16);
 		
-		readHistory.add("www.yahoo.com");
-		readHistory.add("xiomi.org");
-		readHistory.add("wikipedia.in");
-		Hacker modifiedHistoryDetails=new Hacker(readHistory);
-		modifiedHistoryDetails.writeToFile(file);
 		
-
 		// exercise 2-oops concept
 		Browser pages = new Browser(BROWSER);
 		Browser tabOne = new GoogleChrome(BROWSER, "google chrome");
