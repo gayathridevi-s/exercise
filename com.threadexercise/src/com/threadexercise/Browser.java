@@ -53,6 +53,7 @@ class ReadAndDelete{
 public class Browser {
 	public static void main(String[] args) {
 		ArrayList<String> urlList = new ArrayList<>();
+		
 		urlList.add("www.google.com");
 		urlList.add("www.mozilla.com");
 		urlList.add("www.facebook.com");
@@ -69,18 +70,40 @@ public class Browser {
 		Thread delete = new Thread(d);
 		read.start();
 		delete.start();
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			
+			e.printStackTrace();
+		}
+		try {
+			read.join();
+			delete.join();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		r.stop();
+		d.stop();
 
 	}
 }
 
 class Read implements Runnable {
 	ReadAndDelete list;
+	private volatile Boolean isRunning=true;
 	public Read(ReadAndDelete list){
 		this.list=list;
 	}
+	public  void stop() {
+		isRunning=false;
+		
+	}
 	@Override
 	public void run() {
-		while (true) {
+		
+		while (isRunning) {
 			list.readUrl();
 			try {
 				Thread.sleep(1000);
@@ -96,7 +119,7 @@ class Read implements Runnable {
 
 class Delete implements Runnable {
 	ReadAndDelete list;
-
+	private volatile Boolean isRunning=true;
 	public Delete(ReadAndDelete list) {
 		this.list = list;
 		
@@ -104,7 +127,7 @@ class Delete implements Runnable {
 
 	@Override
 	public void run() {
-		while (true) {
+		while (isRunning) {
 			list.deleteUrl();
 			try {
 				Thread.sleep(1000);
@@ -113,6 +136,9 @@ class Delete implements Runnable {
 				e.printStackTrace();
 			}
 		}
+	}
+	public  void stop() {
+		isRunning=false;
 	}
 
 	
